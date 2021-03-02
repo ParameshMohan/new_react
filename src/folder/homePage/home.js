@@ -20,12 +20,14 @@ const Home =({props, match}) =>{
 
     
     return (
-<div>
+<>
 
     <Drawer_TopNav />
-    home
+    <div>
+        home
+    </div>
 
-</div>
+</>
     )
 
 }

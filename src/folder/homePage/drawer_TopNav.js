@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory, Link, } from 'react-router-dom';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -81,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 const Drawer_TopNav = () => {
-
+  const history = useHistory();
     const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -140,22 +141,19 @@ const Drawer_TopNav = () => {
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+          {['Inbox', 'Starred'].map((text, index) => (
+            <ListItem button key={text} 
+            >
+              {text === 'Inbox' && <>
+              
+              <Link
+                 to={'/stock/inbox1'}>
+              <ListItemIcon><MailIcon /></ListItemIcon><ListItemText primary={text} /></Link> </> }
+              {text === 'Starred' && <><ListItemIcon><InboxIcon /></ListItemIcon><ListItemText primary={text} /> </> }
             </ListItem>
           ))}
         </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        
       </Drawer>
       {/* <main className={classes.content}>
         <div className={classes.toolbar} />
