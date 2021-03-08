@@ -1,89 +1,93 @@
-import React, { useState, useEffect } from 'react'
-import { useHistory, Link, } from 'react-router-dom';
-import clsx from 'clsx';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import React, { useState, useEffect } from "react";
+import { useHistory, Link } from "react-router-dom";
+import clsx from "clsx";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import List from "@material-ui/core/List";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+import Hidden from "@material-ui/core/Hidden";
+
+import Inbox1 from "./stock/inbox1";
+import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
+  root: {
+    display: "flex",
+  },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["width", "margin"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  menuButton: {
+    marginRight: 36,
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: "nowrap",
+  },
+  drawerOpen: {
+    width: drawerWidth,
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerClose: {
+    transition: theme.transitions.create("width", {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    overflowX: "hidden",
+    width: theme.spacing(7) + 1,
+    [theme.breakpoints.up("sm")]: {
+      width: theme.spacing(9) + 1,
     },
-    appBar: {
-      zIndex: theme.zIndex.drawer + 1,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-    },
-    appBarShift: {
-      marginLeft: drawerWidth,
-      width: `calc(100% - ${drawerWidth}px)`,
-      transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    menuButton: {
-      marginRight: 36,
-    },
-    hide: {
-      display: 'none',
-    },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
-      whiteSpace: 'nowrap',
-    },
-    drawerOpen: {
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    },
-    drawerClose: {
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      overflowX: 'hidden',
-      width: theme.spacing(7) + 1,
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
-      },
-    },
-    toolbar: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-    },
-  }));
-const Drawer_TopNav = () => {
+  },
+  toolbar: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}));
+const Drawer_TopNav = (props) => {
   const history = useHistory();
-    const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -94,9 +98,29 @@ const Drawer_TopNav = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
-    return(
-<div className={classes.root}>
+  const { container } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <Divider />
+      <List>
+        {["Inbox", "Starred"].map((text, index) => (
+          <ListItem key={text} component={Link} to={"/" + text}>
+            <ListItemIcon>
+              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+            </ListItemIcon>
+            <ListItemText primary={text} />
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+  return (
+    <div className={classes.root}>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -121,41 +145,111 @@ const Drawer_TopNav = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+      <BrowserRouter>
+        <nav className={classes.drawer} aria-label="mailbox folders">
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          {/* <Hidden smUp implementation="css"> */}
+          {/* <Drawer
+            variant="permanent"
+            className={clsx(classes.drawer, {
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            })}
+            classes={{
+              paper: clsx({
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              }),
+            }}
+          > */}
+          {/* <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>{" "}
+          </div> */}
+          {/* <Divider /> */}
+          {/* </Drawer> */}
+          {/* </Hidden> */}
+          <Hidden xsDown implementation="css">
+            <Drawer
+              variant="permanent"
+              className={clsx(classes.drawer, {
+                [classes.drawerOpen]: open,
+                [classes.drawerClose]: !open,
+              })}
+              classes={{
+                paper: clsx({
+                  [classes.drawerOpen]: open,
+                  [classes.drawerClose]: !open,
+                }),
+              }}
+            >
+              <div className={classes.toolbar}>
+                <IconButton onClick={handleDrawerClose}>
+                  {theme.direction === "rtl" ? (
+                    <ChevronRightIcon />
+                  ) : (
+                    <ChevronLeftIcon />
+                  )}
+                </IconButton>{" "}
+              </div>
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        {/* <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {['Inbox', 'Starred'].map((text, index) => (
-            <ListItem button key={text} 
-            >
-              {text === 'Inbox' && <>
-              
-              <Link
-                 to={'/stock/inbox1'}>
-              <ListItemIcon><MailIcon /></ListItemIcon><ListItemText primary={text} /></Link> </> }
-              {text === 'Starred' && <><ListItemIcon><InboxIcon /></ListItemIcon><ListItemText primary={text} /> </> }
-            </ListItem>
-          ))}
-        </List>
-        
-      </Drawer>
-      {/* <main className={classes.content}>
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            {["Inbox", "Starred"].map((text, index) => (
+              <ListItem button key={text}>
+                {text === "Inbox" && (
+                  <>
+                
+                    <ListItemIcon>
+                      <MailIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                   
+                  </>
+                )}
+                {text === "Starred" && (
+                  <>
+                    <ListItemIcon>
+                      <InboxIcon />
+                    </ListItemIcon>
+                    <ListItemText primary={text} />{" "}
+                  </>
+                )}
+              </ListItem>
+            ))}
+          </List>
+        </Drawer> */}
+        {/* <main className={classes.content}>
         <div className={classes.toolbar} />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
@@ -181,8 +275,33 @@ const Drawer_TopNav = () => {
           accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </main> */}
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+
+          <Switch>
+            <Redirect exact path="/" render={() => <div>Home Page</div>} />
+            <Route
+              path="/stock/Inbox1"
+              component={Inbox1}
+              // render={() => (
+              //   <div>
+              //     <Inbox1 />
+              //   </div>
+              // )}
+            />
+            <Route
+              path="/Starred"
+              render={() => (
+                <div>
+                  Page starredhjghjghjhjhjhjhjhjhjhjhjhjhjhj jkkkkkkkkk kjk
+                </div>
+              )}
+            />
+          </Switch>
+        </main>
+      </BrowserRouter>
     </div>
-    )
-}
+  );
+};
 
 export default Drawer_TopNav;
