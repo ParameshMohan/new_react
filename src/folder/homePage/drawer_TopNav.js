@@ -102,8 +102,7 @@ const Drawer_TopNav = (props) => {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const drawer = (
     <div>
-      <div className={classes.toolbar} />
-      <Divider />
+      <div />
       <List>
         {["Inbox", "Starred"].map((text, index) => (
           <ListItem key={text} component={Link} to={"/" + text}>
@@ -146,10 +145,10 @@ const Drawer_TopNav = (props) => {
         </Toolbar>
       </AppBar>
       <BrowserRouter>
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          {/* <Hidden smUp implementation="css"> */}
-          {/* <Drawer
+        {/* <nav className={classes.drawer} aria-label="mailbox folders"> */}
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* <Hidden smUp implementation="css"> */}
+        {/* <Drawer
             variant="permanent"
             className={clsx(classes.drawer, {
               [classes.drawerOpen]: open,
@@ -162,7 +161,7 @@ const Drawer_TopNav = (props) => {
               }),
             }}
           > */}
-          {/* <div className={classes.toolbar}>
+        {/* <div className={classes.toolbar}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "rtl" ? (
                 <ChevronRightIcon />
@@ -171,36 +170,36 @@ const Drawer_TopNav = (props) => {
               )}
             </IconButton>{" "}
           </div> */}
-          {/* <Divider /> */}
-          {/* </Drawer> */}
-          {/* </Hidden> */}
-          <Hidden xsDown implementation="css">
-            <Drawer
-              variant="permanent"
-              className={clsx(classes.drawer, {
-                [classes.drawerOpen]: open,
-                [classes.drawerClose]: !open,
-              })}
-              classes={{
-                paper: clsx({
-                  [classes.drawerOpen]: open,
-                  [classes.drawerClose]: !open,
-                }),
-              }}
-            >
-              <div className={classes.toolbar}>
-                <IconButton onClick={handleDrawerClose}>
-                  {theme.direction === "rtl" ? (
-                    <ChevronRightIcon />
-                  ) : (
-                    <ChevronLeftIcon />
-                  )}
-                </IconButton>{" "}
-              </div>
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
+        {/* <Divider /> */}
+        {/* </Drawer> */}
+        {/* </Hidden> */}
+        {/* <Hidden xsDown implementation="css"> */}
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
+            [classes.drawerOpen]: open,
+            [classes.drawerClose]: !open,
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>{" "}
+          </div>
+          {drawer}
+        </Drawer>
+        {/* </Hidden> */}
+        {/* </nav> */}
         {/* <Drawer
           variant="permanent"
           className={clsx(classes.drawer, {

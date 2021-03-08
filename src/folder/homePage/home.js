@@ -4,7 +4,7 @@ import { useHistory, NavLink, useLocation } from "react-router-dom";
 import Drawer_TopNav from "./drawer_TopNav";
 import Inbox1 from "./stock/inbox1";
 import { Switch, Route, Redirect, BrowserRouter } from "react-router-dom";
-
+import AppLayout from "./AppLayout";
 const Home = ({ props, match }) => {
   const history = useHistory();
 
@@ -18,8 +18,13 @@ const Home = ({ props, match }) => {
 
   return (
     <>
-      <Drawer_TopNav />
-      <div>home {/* <Inbox1 /> */}</div>
+      <AppLayout>
+        <div>
+          <main>
+            <div />
+          </main>
+        </div>
+      </AppLayout>
     </>
   );
 };

@@ -14,21 +14,6 @@ const App = () => {
         <Redirect exact from="/" to="/login" />
         <Route path="/login" component={Login} />
         <Route path="/home" component={Home} />
-        <Route
-          path="/folder/homePage/stock/indbox1"
-          component={Inbox1}
-          // render={() => (
-          //   <div>
-          //     <Inbox1 />
-          //   </div>
-          // )}
-        />
-        <Route
-          path="/Starred"
-          render={() => (
-            <div>Page starredhjghjghjhjhjhjhjhjhjhjhjhjhjhj jkkkkkkkkk kjk</div>
-          )}
-        />
       </Switch>
 
       {/* // </div> */}
